@@ -8,6 +8,7 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
+import requests
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
