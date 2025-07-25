@@ -1,0 +1,3 @@
+banco de dados: db_pyt_api
+tabela: tb_python_api
+colunas: `pyt_id`, `pyt_nome`, `pyt_telefone`, `pyt_email`, `pyt_nascimento`, `pyt_observacoes`

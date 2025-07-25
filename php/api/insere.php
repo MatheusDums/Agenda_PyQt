@@ -9,6 +9,7 @@ if ($dados) {
     $dados_log = json_decode($dados, true);
 
     if ($dados_log) {
+/*         $id = $dados_log['id']; */
         $nome = $dados_log['nome'];
         $telefone = $dados_log['telefone'];
         $email = $dados_log['email'];

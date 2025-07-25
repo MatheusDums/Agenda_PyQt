@@ -1,10 +1,11 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox, QApplication, QTableWidget, QTableWidgetItem, QWidget
 from PyQt6.QtCore import QDate, QTimer
 from datetime import datetime
 import requests
 import json
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -20,17 +21,18 @@ class Ui_MainWindow(object):
         self.title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.title_label.setObjectName("title_label")
         self.tabela = QtWidgets.QTableWidget(parent=self.centralwidget)
-        self.tabela.setGeometry(QtCore.QRect(0, 280, 601, 241))
+        self.tabela.setGeometry(QtCore.QRect(0, 280, 621, 241))
         self.tabela.setAutoFillBackground(False)
+        self.tabela.setStyleSheet("")
         self.tabela.setObjectName("tabela")
-        self.tabela.setColumnCount(5)
+        self.tabela.setColumnCount(6)
         self.tabela.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.tabela.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.tabela.setHorizontalHeaderItem(1, item)
+        self.tabela.setHorizontalHeaderItem(1, item)  
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.tabela.setHorizontalHeaderItem(2, item)
@@ -40,6 +42,9 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.tabela.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.tabela.setHorizontalHeaderItem(5, item)
         self.tabela.horizontalHeader().setDefaultSectionSize(101)
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 40, 751, 241))
@@ -78,7 +83,7 @@ class Ui_MainWindow(object):
         self.salvar_btn.setStyleSheet("background-color: rgb(0, 255, 0);\n"
 "color: rgb(0, 0, 0);")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/images/save-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("../Documents/pyqt6/assets/images/save-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.salvar_btn.setIcon(icon)
         self.salvar_btn.setObjectName("salvar_btn")
         self.gridLayout.addWidget(self.salvar_btn, 7, 0, 1, 2)
@@ -94,7 +99,7 @@ class Ui_MainWindow(object):
         self.cancelar_btn.setStyleSheet("background-color: rgb(255, 0, 0);\n"
 "color: rgb(0, 0, 0);")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("assets/images/cancel-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap("../Documents/pyqt6/assets/images/cancel-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.cancelar_btn.setIcon(icon1)
         self.cancelar_btn.setObjectName("cancelar_btn")
         self.gridLayout.addWidget(self.cancelar_btn, 7, 2, 1, 1)
@@ -106,26 +111,23 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout.setObjectName("verticalLayout")
         self.editar_btn = QtWidgets.QPushButton(parent=self.frame_2)
+        self.editar_btn.setGeometry(QtCore.QRect(10, 10, 101, 31))
         self.editar_btn.setStyleSheet("background-color: rgb(0, 85, 255);\n"
 "color: rgb(0, 0, 0);")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("assets/images/edit-3-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap("../Documents/pyqt6/assets/images/edit-3-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.editar_btn.setIcon(icon2)
         self.editar_btn.setObjectName("editar_btn")
-        self.verticalLayout.addWidget(self.editar_btn)
         self.excluir_btn = QtWidgets.QPushButton(parent=self.frame_2)
+        self.excluir_btn.setGeometry(QtCore.QRect(10, 50, 101, 31))
         self.excluir_btn.setStyleSheet("color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 0, 0);")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("assets/images/delete-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon3.addPixmap(QtGui.QPixmap("../Documents/pyqt6/assets/images/delete-svgrepo-com.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.excluir_btn.setIcon(icon3)
         self.excluir_btn.setObjectName("excluir_btn")
-        self.verticalLayout.addWidget(self.excluir_btn)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout.addItem(spacerItem)
+        self.tabela.setColumnWidth(1, 0)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -133,18 +135,19 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Agenda de Contatos"))
-        MainWindow.setWindowIcon(QIcon('../assets/images/image.png'))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.title_label.setText(_translate("MainWindow", "Agenda de Contatos"))
         item = self.tabela.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Nome"))
         item = self.tabela.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Telefone"))
+        item.setText(_translate("MainWindow", "Id"))
         item = self.tabela.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Email"))
+        item.setText(_translate("MainWindow", "Telefone"))
         item = self.tabela.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Nascimento"))
+        item.setText(_translate("MainWindow", "Email"))
         item = self.tabela.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Nascimento"))
+        item = self.tabela.horizontalHeaderItem(5)
         item.setText(_translate("MainWindow", "Observações"))
         self.label_nascimento.setText(_translate("MainWindow", "Data de Nascimento"))
         self.label_nome.setText(_translate("MainWindow", "Nome"))
@@ -155,7 +158,6 @@ class Ui_MainWindow(object):
         self.cancelar_btn.setText(_translate("MainWindow", "Cancelar"))
         self.editar_btn.setText(_translate("MainWindow", "Editar"))
         self.excluir_btn.setText(_translate("MainWindow", "Excluir"))
-        
         """ desenvolvimento """
         self.salvar_btn.clicked.connect(self.envia)
         self.cancelar_btn.clicked.connect(self.padrao)
@@ -188,14 +190,16 @@ class Ui_MainWindow(object):
             self.tabela.insertRow(linha)
             nome_tb = QtWidgets.QTableWidgetItem(nome)
             self.tabela.setItem(linha, 0, nome_tb)
+            id_tb = QtWidgets.QTableWidgetItem(str(id))
+            self.tabela.setItem(linha, 1, id_tb)
             telefone_tb = QtWidgets.QTableWidgetItem(telefone)
-            self.tabela.setItem(linha, 1, telefone_tb)
+            self.tabela.setItem(linha, 2, telefone_tb)
             email_tb = QtWidgets.QTableWidgetItem(email)
-            self.tabela.setItem(linha, 2, email_tb)
+            self.tabela.setItem(linha, 3, email_tb)
             nasc_tb = QtWidgets.QTableWidgetItem(nascimento)
-            self.tabela.setItem(linha, 3, nasc_tb)
+            self.tabela.setItem(linha, 4, nasc_tb)
             obs_tb = QtWidgets.QTableWidgetItem(observacoes)
-            self.tabela.setItem(linha, 4, obs_tb)
+            self.tabela.setItem(linha, 5, obs_tb)
             self.padrao()
         
     def envia(self, i) :
@@ -230,20 +234,16 @@ class Ui_MainWindow(object):
         """ agora tem que puxar os dados do banco, e apresentar na tabela """
         self.listar()
         
-    def excluir(self, i) :
-        """ url = 'http://localhost/pyqt6/php/api/listar.php'
-        response = requests.get(url)
-        dados = response.json()
-        for i in range(len(dados)): 
-            id = dados[i]['pyt_id'] 
-        """
-        """ url  = 'http://localhost/pyqt6/php/api/delete.php'
-        response = requests.delete(url) """
-        
-        linha = self.tabela.currentRow()
+    def excluir(self) :
         url_delete = 'http://localhost/pyqt6/php/api/delete.php'
-        nome_linha = self.tabela.currentRow()
-
+        linha = self.tabela.currentRow()
+        if linha >= 0 :
+            item = self.tabela.item(linha, 1)
+            item_id = item.text()
+        data = {
+            'id' : item_id 
+        }
+        
         if linha >= 0:
             reply = QMessageBox()
             reply.setWindowTitle("Agenda de Contatos")
@@ -255,14 +255,11 @@ class Ui_MainWindow(object):
             
             if x == QMessageBox.StandardButton.Yes:
                 self.tabela.removeRow(linha)
-                response = requests.delete(url_delete,  json=nome_linha)
+                response = requests.delete(url_delete,  json=data)
                 print(response.text)
-                print
+                print("id:" + item_id)
         else:
             print("Nenhuma linha selecionada.")
-        
-
-        
 
 if __name__ == "__main__":
     import sys
